@@ -23,9 +23,9 @@ public class NaiveBayes {
     public static void main(String[] args) throws Exception {
         // load data
         ArffLoader loader = new ArffLoader();
-        loader.setFile(new File("C:\\Users\\Andih\\Downloads\\TestDaten.arff"));
+        loader.setFile(new File("C:\\Users\\Andih\\IdeaProjects\\Informationssysteme\\TestDaten.arff"));
         Instances structure = loader.getStructure();
-        structure.setClassIndex(0);
+        structure.setClassIndex(structure.numAttributes()-1);
 
         // train NaiveBayes
         NaiveBayesUpdateable nb = new NaiveBayesUpdateable();

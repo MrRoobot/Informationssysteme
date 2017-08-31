@@ -1,10 +1,10 @@
 @relation 'TestDaten_1 (1)-weka.filters.unsupervised.attribute.Reorder-R2,3,4,5,1'
 
-@attribute Essen numeric
-@attribute Service numeric
-@attribute Qualität numeric
-@attribute Einrichtung numeric
-@attribute Gesamtbewertung numeric
+@attribute Essen {1,2,3,4,5}
+@attribute Service {1,2,3,4,5}
+@attribute Qualität {1,2,3,4,5}
+@attribute Einrichtung {1,2,3,4,5}
+@attribute Gesamtbewertung {1,2,3,4,5}
 
 @data
 1,1,1,1,1
