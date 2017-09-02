@@ -22,7 +22,8 @@ public class NaiveBayes {
      * @param args        the commandline arguments
      * @throws Exception  if something goes wrong
      */
-    public static void main(String[] args) throws Exception {
+    public String bayesResult="";
+    public  void naiveBayes() throws Exception {
         // load data
         ArffLoader loader = new ArffLoader();
         loader.setFile(new File("C:\\Users\\Andih\\IdeaProjects\\Informationssysteme\\TrainingsDaten.arff"));
@@ -46,5 +47,6 @@ public class NaiveBayes {
 
         // output generated model
         System.out.println(test.instance(0).stringValue(4));
+        bayesResult=test.instance(0).stringValue(4);
     }
 }
