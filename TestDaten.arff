@@ -1,4 +1,4 @@
-@relation 'TestDaten_1 (1)-weka.filters.unsupervised.attribute.Reorder-R2,3,4,5,1'
+@relation 'TestDaten -weka.filters.unsupervised.attribute.Reorder-R2,3,4,5,1'
 
 @attribute Essen {1,2,3,4,5}
 @attribute Service {1,2,3,4,5}
@@ -7,5 +7,4 @@
 @attribute Gesamtbewertung {1,2,3,4,5}
 
 @data
-3,2,2,4,?
-
+1,2,3,4,?

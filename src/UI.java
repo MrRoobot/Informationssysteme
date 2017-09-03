@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class UI extends javax.swing.JFrame{
 
@@ -55,9 +58,24 @@ public class UI extends javax.swing.JFrame{
 
         private void jButton1ActionPerformed( java.awt.event.ActionEvent evt ) throws Exception {
             String ratings=jTextField1.getText();
-            System.out.println(ratings);
-            naiveBayes.naiveBayes();
-            result.setText("Result: "+naiveBayes.bayesResult);
+            System.out.println(checkValidInput(ratings));
+            if(checkValidInput(ratings)) {
+                generateRatingsFile(ratings);
+                naiveBayes.naiveBayes();
+                result.setText("Result: " + naiveBayes.bayesResult);
+            }else {
+                result.setText("Input is not valid. Please check your input.");
+            }
+        }
+
+        private boolean checkValidInput(String input){
+            boolean validInput = false;
+            if(input.length() == 7){
+                if(input.matches("[1-5,]+")){
+                    validInput = true;
+                }
+            }
+            return validInput;
         }
 
 
@@ -66,6 +84,34 @@ public class UI extends javax.swing.JFrame{
             test.setVisible(true);
             test.setSize(500,210);
 
+        }
+
+        private void generateRatingsFile(String ratings){
+            try{
+                File file = new File("TestDaten.arff");
+                File wekaFile = new File("TestDaten.arff");
+                String weka = "@relation 'TestDaten -weka.filters.unsupervised.attribute.Reorder-R2,3,4,5,1'\n" +
+                        "\n" +
+                        "@attribute Essen {1,2,3,4,5}\n" +
+                        "@attribute Service {1,2,3,4,5}\n" +
+                        "@attribute Qualität {1,2,3,4,5}\n" +
+                        "@attribute Einrichtung {1,2,3,4,5}\n" +
+                        "@attribute Gesamtbewertung {1,2,3,4,5}\n";
+                if(file.createNewFile()){
+                    FileWriter fileWriter = new FileWriter(file,true);
+                    fileWriter.write(weka);
+                    fileWriter.write("\n@data\n" + ratings + ",?");
+                    fileWriter.close();
+                }else{
+                    System.out.println("File exists");
+                    FileWriter fileWriter = new FileWriter(file,false);
+                    fileWriter.write(weka);
+                    fileWriter.write("\n@data\n" + ratings +",?");
+                    fileWriter.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
 
 }

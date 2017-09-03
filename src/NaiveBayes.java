@@ -26,10 +26,10 @@ public class NaiveBayes {
     public  void naiveBayes() throws Exception {
         // load data
         ArffLoader loader = new ArffLoader();
-        loader.setFile(new File("C:\\Users\\Andih\\IdeaProjects\\Informationssysteme\\TrainingsDaten.arff"));
+        loader.setFile(new File("TrainingsDaten.arff"));
         Instances structure = loader.getStructure();
         structure.setClassIndex(structure.numAttributes()-1);
-        ConverterUtils.DataSource source2 = new ConverterUtils.DataSource("C:\\Users\\Andih\\IdeaProjects\\Informationssysteme\\TestDaten.arff");
+        ConverterUtils.DataSource source2 = new ConverterUtils.DataSource("TestDaten.arff");
         Instances test = source2.getDataSet();
 
         if (test.classIndex() == -1)
