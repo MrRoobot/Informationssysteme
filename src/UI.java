@@ -89,7 +89,6 @@ public class UI extends javax.swing.JFrame{
         private void generateRatingsFile(String ratings){
             try{
                 File file = new File("TestDaten.arff");
-                File wekaFile = new File("TestDaten.arff");
                 String weka = "@relation 'TestDaten -weka.filters.unsupervised.attribute.Reorder-R2,3,4,5,1'\n" +
                         "\n" +
                         "@attribute Essen {1,2,3,4,5}\n" +
