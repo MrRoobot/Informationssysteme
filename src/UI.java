@@ -1,3 +1,5 @@
+import org.boon.core.Sys;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -16,9 +18,12 @@ public class UI extends javax.swing.JFrame{
         private Font f = new Font("serif", Font.PLAIN, 20);
         private static NaiveBayes naiveBayes=new NaiveBayes();
 
+        private static CustomNaiveBayes cnb = new CustomNaiveBayes();
 
 
         public UI() {
+
+
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
             jPanel1.setLayout( new javax.swing.BoxLayout(
@@ -63,6 +68,16 @@ public class UI extends javax.swing.JFrame{
                 generateRatingsFile(ratings);
                 naiveBayes.naiveBayes();
                 result.setText("Result: " + naiveBayes.bayesResult);
+
+                //Custom NB:
+                String[] strArray = ratings.split(",");
+                int[] intArray = new int[strArray.length];
+                for(int i = 0; i < strArray.length; i++) {
+                    intArray[i] = Integer.parseInt(strArray[i]);
+                }
+                //Categories are 1-5, but internally represented as list indices 0-4, hence Category = Prediction + 1
+                System.out.println("Custom Prediction: " + (cnb.makePredictionFromValueArray(intArray)+1));
+
             }else {
                 result.setText("Input is not valid. Please check your input.");
             }
@@ -80,6 +95,11 @@ public class UI extends javax.swing.JFrame{
 
 
         public static void main(String args[]) {
+            try {
+                cnb.loadLearningData();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
             UI test=new UI();
             test.setVisible(true);
             test.setSize(500,210);
