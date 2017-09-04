@@ -24,6 +24,7 @@ public class UI extends javax.swing.JFrame{
             jPanel1.setLayout( new javax.swing.BoxLayout(
                     jPanel1, javax.swing.BoxLayout.Y_AXIS ) );
 
+
             jLabel1.setFont(f);
             jLabel1.setText ( "<html><body>Geben sie hier die Bewertung für: Essen, Service,<br>Qualität und Einrichtung ein Bsp: 1,2,3,4</body></html>" );
 
@@ -83,6 +84,7 @@ public class UI extends javax.swing.JFrame{
             UI test=new UI();
             test.setVisible(true);
             test.setSize(500,210);
+            test.setTitle("NaiveBayes Predictor");
 
         }
 
