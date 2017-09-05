@@ -74,7 +74,7 @@ public class UI extends javax.swing.JFrame{
                     intArray[i] = Integer.parseInt(strArray[i]);
                 }
 
-                result.setText("Result: " + naiveBayes.bayesResult+"       Custom Prediction: " + (cnb.makePredictionFromValueArray(intArray)+1));
+                result.setText("Result:   Weka: " + naiveBayes.bayesResult+"       Custom Prediction: " + (cnb.makePredictionFromValueArray(intArray)+1));
 
 
                 //Categories are 1-5, but internally represented as list indices 0-4, hence Category = Prediction + 1
