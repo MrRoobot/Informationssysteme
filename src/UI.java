@@ -52,7 +52,6 @@ public class UI extends javax.swing.JFrame{
             result.setFont(f);
             result.setText("Result:");
 
-
             jPanel1.add(jTextField1) ;
             jPanel1.add(result);
             jPanel1.add(jButton1) ;
@@ -63,7 +62,6 @@ public class UI extends javax.swing.JFrame{
 
         private void jButton1ActionPerformed( java.awt.event.ActionEvent evt ) throws Exception {
             String ratings=jTextField1.getText();
-            System.out.println(checkValidInput(ratings));
             if(checkValidInput(ratings)) {
                 generateRatingsFile(ratings);
                 naiveBayes.naiveBayes();
@@ -105,6 +103,7 @@ public class UI extends javax.swing.JFrame{
             UI test=new UI();
             test.setVisible(true);
             test.setSize(500,210);
+            test.setTitle("NaiveBayes Predictor");
 
         }
 
