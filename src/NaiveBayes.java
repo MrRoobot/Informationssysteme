@@ -11,10 +11,11 @@ public class NaiveBayes {
 
     public String bayesResult="";
     public  void naiveBayes() throws Exception {
-        // load data
+        // load trainingsData
         ArffLoader loader = new ArffLoader();
         loader.setFile(new File("TrainingsDaten.arff"));
         Instances structure = loader.getStructure();
+        //load testData
         structure.setClassIndex(structure.numAttributes()-1);
         ConverterUtils.DataSource source2 = new ConverterUtils.DataSource("TestDaten.arff");
         Instances test = source2.getDataSet();
@@ -33,7 +34,7 @@ public class NaiveBayes {
         double label = nb.classifyInstance(test.instance(0));
         test.instance(0).setClassValue(label);
 
-        // output generated model
+        // prediction result
         System.out.println(test.instance(0).stringValue(4));
         bayesResult=test.instance(0).stringValue(4);
     }

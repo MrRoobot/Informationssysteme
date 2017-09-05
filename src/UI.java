@@ -2,18 +2,20 @@ import org.boon.core.Sys;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class UI extends javax.swing.JFrame{
+public class UI extends JFrame{
 
-        private JPanel jPanel1 = new javax.swing.JPanel();
+        private JPanel jPanel1 = new JPanel();
 
         
-        private JLabel jLabel1 = new javax.swing.JLabel();
-        private JButton jButton1 = new javax.swing.JButton();
-        private JTextField jTextField1 = new javax.swing.JTextField();
+        private JLabel instructions = new JLabel();
+        private JButton button = new JButton();
+        private JTextField inputField = new JTextField();
         public JLabel result=new JLabel();
         private Font f = new Font("serif", Font.PLAIN, 20);
         private static NaiveBayes naiveBayes=new NaiveBayes();
@@ -24,20 +26,19 @@ public class UI extends javax.swing.JFrame{
         public UI() {
 
 
-            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-            jPanel1.setLayout( new javax.swing.BoxLayout(
-                    jPanel1, javax.swing.BoxLayout.Y_AXIS ) );
+            jPanel1.setLayout( new BoxLayout(jPanel1,BoxLayout.Y_AXIS ) );
 
-            jLabel1.setFont(f);
-            jLabel1.setText ( "<html><body>Geben sie hier die Bewertung für: Essen, Service,<br>Qualität und Einrichtung ein Bsp: 1,2,3,4</body></html>" );
+            instructions.setFont(f);
+            instructions.setText("<html><body>Geben sie hier die Bewertung für: Essen, Service,<br>Qualität und Einrichtung ein Bsp: 1,2,3,4</body></html>");
 
-            jPanel1.add ( jLabel1 );
+            jPanel1.add(instructions);
 
-            jButton1.setFont(f);
-            jButton1.setText("Predict");
+            button.setFont(f);
+            button.setText("Predict");
 
-            jButton1.addActionListener(new java.awt.event.ActionListener() {
+            button.addActionListener(new ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     try {
                         jButton1ActionPerformed(evt);
@@ -47,21 +48,21 @@ public class UI extends javax.swing.JFrame{
                 }
             });
 
-            jTextField1.setFont(f);
-            jTextField1.setText ("") ;
+            inputField.setFont(f);
+            inputField.setText ("") ;
             result.setFont(f);
             result.setText("Result:");
 
-            jPanel1.add(jTextField1) ;
+            jPanel1.add(inputField) ;
             jPanel1.add(result);
-            jPanel1.add(jButton1) ;
+            jPanel1.add(button) ;
             this.getContentPane().add ( jPanel1 ) ;
             pack();
         }
 
 
-        private void jButton1ActionPerformed( java.awt.event.ActionEvent evt ) throws Exception {
-            String ratings=jTextField1.getText();
+        private void jButton1ActionPerformed( ActionEvent evt ) throws Exception {
+            String ratings=inputField.getText();
             if(checkValidInput(ratings)) {
                 generateRatingsFile(ratings);
                 naiveBayes.naiveBayes();
