@@ -9,9 +9,9 @@ public class UI extends javax.swing.JFrame{
         private JPanel jPanel1 = new javax.swing.JPanel();
 
         
-        private JLabel jLabel1 = new javax.swing.JLabel();
+        private JLabel instructions = new javax.swing.JLabel();
         private JButton jButton1 = new javax.swing.JButton();
-        private JTextField jTextField1 = new javax.swing.JTextField();
+        private JTextField inputField = new javax.swing.JTextField();
         public JLabel result=new JLabel();
         private Font f = new Font("serif", Font.PLAIN, 20);
         private static NaiveBayes naiveBayes=new NaiveBayes();
@@ -25,10 +25,10 @@ public class UI extends javax.swing.JFrame{
                     jPanel1, javax.swing.BoxLayout.Y_AXIS ) );
 
 
-            jLabel1.setFont(f);
-            jLabel1.setText ( "<html><body>Geben sie hier die Bewertung für: Essen, Service,<br>Qualität und Einrichtung ein Bsp: 1,2,3,4</body></html>" );
+            instructions.setFont(f);
+            instructions.setText("<html><body>Geben sie hier die Bewertung für: Essen, Service,<br>Qualität und Einrichtung ein Bsp: 1,2,3,4</body></html>");
 
-            jPanel1.add ( jLabel1 );
+            jPanel1.add(instructions);
 
             jButton1.setFont(f);
             jButton1.setText("Predict");
@@ -43,13 +43,13 @@ public class UI extends javax.swing.JFrame{
                 }
             });
 
-            jTextField1.setFont(f);
-            jTextField1.setText ("") ;
+            inputField.setFont(f);
+            inputField.setText ("") ;
             result.setFont(f);
             result.setText("Result:");
 
 
-            jPanel1.add(jTextField1) ;
+            jPanel1.add(inputField) ;
             jPanel1.add(result);
             jPanel1.add(jButton1) ;
             this.getContentPane().add ( jPanel1 ) ;
@@ -58,7 +58,7 @@ public class UI extends javax.swing.JFrame{
 
 
         private void jButton1ActionPerformed( java.awt.event.ActionEvent evt ) throws Exception {
-            String ratings=jTextField1.getText();
+            String ratings=inputField.getText();
             System.out.println(checkValidInput(ratings));
             if(checkValidInput(ratings)) {
                 generateRatingsFile(ratings);
