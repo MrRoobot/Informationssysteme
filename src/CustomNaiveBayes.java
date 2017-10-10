@@ -13,8 +13,11 @@ public class CustomNaiveBayes {
     private ArffLoader loader = new ArffLoader();
 
     private ArrayList<int[]> trainSet = new ArrayList<int[]>();
+    private ArrayList<int[]> trainSet1 = new ArrayList<int[]>();
     private ArrayList<int[]> testSet = new ArrayList<int[]>();
+    private ArrayList<int[]> testSet1 = new ArrayList<int[]>();
     private ArrayList<ArrayList<double[]>> summaries;
+    private ArrayList<ArrayList<int[]>> separated;
 
     public void loadLearningData() throws Exception{
         ArffLoader loader = new ArffLoader();
@@ -26,13 +29,6 @@ public class CustomNaiveBayes {
             trainSet.add(convertToIntArray(data[i]));
         }
         summaries = summarizeByClass(trainSet);
-
-
-        /*
-        * commented code was for testing of accuracy function
-        * it splits the training data into randomized training and test data,
-        * runs the predictions and checks the accuracy
-        *
 
 
         for(int i = 0; i < data.length; i++){
@@ -48,7 +44,7 @@ public class CustomNaiveBayes {
                 print(Arrays.toString(separated.get(i).get(j)));
             }
         }
-        ArrayList<ArrayList<double[]>> summaries = summarizeByClass(trainSet);
+        ArrayList<ArrayList<double[]>> summaries = summarizeByClass(testSet);
         print(String.valueOf("Summaries size: " + summaries.size()));
         for(int i = 0; i < summaries.size(); i++) {
             print(String.valueOf("Summary " + i + " size: " + summaries.get(i).size()));
@@ -57,10 +53,10 @@ public class CustomNaiveBayes {
             }
         }
 
-        int[] predictions = getPredictions(summaries, testSet);
-        double accuracy = getAccuracy(testSet, predictions);
+        int[] predictions = getPredictions(summaries, testSet1);
+        double accuracy = getAccuracy(testSet1, predictions);
+        print(String.valueOf(accuracy));
         print("Predictions: " + Arrays.toString(predictions));
-        */
     }
 
     public int makePredictionFromValueArray(int[] val){
@@ -81,19 +77,22 @@ public class CustomNaiveBayes {
     public void splitDataset(Object[] dataSet, double splitRatio) {
         int trainSize = (int) (dataSet.length * splitRatio);
         Random r = new Random();
-        while(trainSet.size() < trainSize) {
-            int index = r.nextInt(testSet.size());
-            trainSet.add(testSet.get(index));
-            testSet.remove(index);
+        testSet1 = (ArrayList<int[]>) testSet.clone();
+        while(trainSet1.size() < trainSize) {
+            int index = r.nextInt(testSet1.size());
+            trainSet1.add(testSet.get(index));
+            testSet1.remove(index);
         }
         print("testSet: ");
-        for(int i = 0; i < testSet.size(); i++){
-            print(Arrays.toString(testSet.get(i)));
+        for(int i = 0; i < testSet1.size(); i++){
+            print(Arrays.toString(testSet1.get(i)));
         }
+        print("Testset is: " +String.valueOf(testSet1.size()));
         print("trainSet: ");
-        for(int i = 0; i < trainSet.size(); i++){
-            print(Arrays.toString(trainSet.get(i)));
+        for(int i = 0; i < trainSet1.size(); i++){
+            print(Arrays.toString(trainSet1.get(i)));
         }
+        print("trainset is: " +String.valueOf(trainSet1.size()));
     }
 
     private ArrayList<ArrayList<int[]>> separateByClass(ArrayList<int[]> data){
@@ -141,7 +140,7 @@ public class CustomNaiveBayes {
     }
 
     private ArrayList<ArrayList<double[]>> summarizeByClass(ArrayList<int[]> data){
-        ArrayList<ArrayList<int[]>> separated = separateByClass(data);
+        separated = separateByClass(data);
         ArrayList<ArrayList<double[]>> summaries = new ArrayList<>();
         for(int i = 0; i < separated.size(); i++){
             summaries.add(summarize(separated.get(i)));
@@ -152,10 +151,8 @@ public class CustomNaiveBayes {
 
     private double calculateProbability(int x, double mean, double stdev){
         double r = 0;
-        double divider = 2*Math.pow(stdev,2);
-        if(divider == 0) return 1;
-        double exponent = Math.exp(-(Math.pow(x-mean,2)/divider));
-        r = (1 / (Math.sqrt(2*Math.PI) * stdev)) * exponent;
+        double exponent = Math.exp((-(Math.pow((x-mean),2))/(2*Math.pow(stdev,2))));
+        r = (1 / (Math.sqrt(2*Math.PI * Math.pow(stdev,2))) * exponent);
         return r;
     }
 
@@ -172,7 +169,6 @@ public class CustomNaiveBayes {
             }
             print("probability for class " + i + ": " + probabilities.get(i));
         }
-
         return probabilities;
     }
 
